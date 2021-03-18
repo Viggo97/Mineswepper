@@ -1,6 +1,7 @@
-import {Cell} from './Cell.js'
+import {Cell} from './Cell.js';
+import {UI} from './UI.js';
 
-class Game {
+class Game extends UI{
     #config = {
         easy: {
             rows: 8,
@@ -22,21 +23,32 @@ class Game {
     #numberOfRows = null;
     #numberOfCols = null;
     #numberOfMines = null;
+
     #cells = [];
 
+    #board = null;
+
     initializeGame() {
+        this.#handleElements();
         this.#newGame();
     }
 
     #newGame(
         rows = this.#config.easy.rows,
-        cols = this.#cofig.easy.cols,
+        cols = this.#config.easy.cols,
         mines = this.#config.easy.mines) {
         this.#numberOfRows = rows;
         this.#numberOfCols = cols;
         this.#numberOfMines = mines;
 
+        this.#setStyles();
+
         this.#generatesCells();
+        this.#renderBoard();
+    }
+
+    #handleElements() {
+        this.#board = this.getElement(this.UiSelectors.board);
     }
 
     #generatesCells() {
@@ -48,7 +60,17 @@ class Game {
         }
     }
 
-    
+    #renderBoard() {
+        this.#cells.flat().forEach(cell => {
+            this.#board.insertAdjacentHTML('beforeend', cell.createElement());
+        });
+    }
+
+    #setStyles() {
+        document.documentElement.style.setProperty('--cells-in-row', this.#numberOfCols);
+    }
+
+
 }
 
 window.onload = function () {
