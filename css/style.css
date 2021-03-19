@@ -154,10 +154,22 @@ html {
   border-color: #fff var(--primary-color-dark) var(--primary-color-dark) #fff;
 }
 
+.border--revealed {
+  border-width: 0.1rem;
+  border-color: var(--primary-color-dark);
+}
+
 .cell {
   width: var(--cell-size);
   height: var(--cell-size);
   cursor: pointer;
+  background-size: 2rem;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.cell--is--flag {
+  background-image: url("../assets/flag.svg");
 }
 
 .hide {
